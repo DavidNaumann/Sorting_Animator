@@ -48,7 +48,7 @@ def draw_plot(x,y):
     return image
 
 
-n = 100
+n = 50
 
 test = list(range(1,n))
 np.random.shuffle(test)
@@ -61,8 +61,22 @@ length = 5
 
 frames = int(len(sorts) / length)
 
+images = []
 
+print("Beginning Image Creation...")
+image_counter = 0
+image_count = len(sorts)
+print("0% done with Image Creation")
+for sort in sorts:
+	images.append(draw_plot(x, sort))
+	image_counter += 1
+	percent = round((image_counter/image_count * 100),1)
+	
+	print(str(percent) + "% done with Image Creation")
+
+print("Image Creation done!")
+	
 print("Beginning Animation...")
 kwargs_write = {'fps':2.0,'quantizer':'nq'}
-imageio.mimsave('./sort.gif', [draw_plot(x, sort) for sort in sorts], fps=frames)
+imageio.mimsave('./sort.gif', images, fps=frames)
 print("Animation done!")
